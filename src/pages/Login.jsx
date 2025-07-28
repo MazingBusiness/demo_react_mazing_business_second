@@ -320,7 +320,7 @@ const Login = () => {
                     <span style={{ marginLeft: "5px" }}>
                       {/* <a href="/register">Register Now</a> */}
                       <Link to="/register" >
-                        Register Now
+                        Register Now 
                       </Link>
                     </span>
                   </p>
