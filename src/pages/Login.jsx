@@ -318,7 +318,10 @@ const Login = () => {
                   <p className="register-text">
                     Don’t have an account?
                     <span style={{ marginLeft: "5px" }}>
-                      <a href="/register">Register Now</a>
+                      {/* <a href="/register">Register Now</a> */}
+                      <Link to="/register" >
+                        Register Now
+                      </Link>
                     </span>
                   </p>
 
