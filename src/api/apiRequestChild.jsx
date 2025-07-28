@@ -66,6 +66,33 @@ export const registerUser = async (userData) => {
     return response;
 }
 
+export const verifyGstinForRegistration = async (gst_number) => {
+  return fetch(`${API_BASE_URL}user/verify-gst-for-registration`, {
+    method: 'POST',
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ gst_number }),
+  });
+};
+
+export const getAllStates = async () => {
+  const response = await fetch(`${API_BASE_URL}user/state`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  return response;
+};
+
+export const verifyPhoneForRegistration = async (phone) => {
+  const response = await fetch(`${API_BASE_URL}user/verify-phone-for-registration`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ phone }),
+  });
+  return response;
+};
+
 // --Registraton Process APIs end--
 
 // --Login API start--
@@ -101,6 +128,8 @@ export const sendForgotPasswordOtp = async (phone) => {
   return response;
 };
 // --Login API end--
+
+
 
 // Get My Orders
 export const getMyOrders = async () => {
