@@ -72,7 +72,7 @@ const ProfileDashbord = () => {
           <div className="dashboard-cards">
             <div className="card products">
               <h5>Products</h5>
-              <span>In your cart</span>
+              <span>In your carts</span>
               <h2>03</h2>
               <div className="card-Shape">
                 <img src={Shape} alt="Shape" />

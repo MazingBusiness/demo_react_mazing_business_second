@@ -84,6 +84,12 @@ export const getAllStates = async () => {
   return response;
 };
 
+// Get cities by state_id
+export const getCitiesByState = async (stateId) => {
+  const response = await fetch(`${API_BASE_URL}user/city?state_id=${stateId}`);
+  return await response.json();
+};
+
 export const verifyPhoneForRegistration = async (phone) => {
   const response = await fetch(`${API_BASE_URL}user/verify-phone-for-registration`, {
     method: "POST",
@@ -136,6 +142,7 @@ export const getMyOrders = async () => {
   try {
     
     const response = await fetch(`${API_BASE_URL}user/my-order/`, {
+      
       method: 'GET',
       headers: {
          ...getHeader().headers,

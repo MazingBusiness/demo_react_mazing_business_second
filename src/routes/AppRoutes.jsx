@@ -36,7 +36,7 @@ const AppRoutes = () => (
       
 
       {/* Protected Profile Routes */}
-      <Route path="/profileDashbord" element={<PrivateRoute><ProfileDashbord /></PrivateRoute>} />
+      <Route path="/profile-dashbord" element={<PrivateRoute><ProfileDashbord /></PrivateRoute>} />
       <Route path="/profileOrder" element={<PrivateRoute><ProfileOrder /></PrivateRoute>} />
       <Route path="/profileOrderDetails" element={<PrivateRoute><ProfileOrderDetails /></PrivateRoute>} />
       <Route path="/manage-profile" element={<PrivateRoute><ManageProfile /></PrivateRoute>} />
@@ -48,7 +48,7 @@ const AppRoutes = () => (
       <Route path="/wallet" element={<PrivateRoute><ProfileWallet /></PrivateRoute>} />
       <Route path="/ticketDetails" element={<PrivateRoute><TicketDetails /></PrivateRoute>} />
     </Routes>
-   </HashRouter> 
+   </HashRouter>
 );
 
 export default AppRoutes;

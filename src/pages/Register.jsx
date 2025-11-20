@@ -11,7 +11,7 @@ import usaFlag from "../assets/icons/flag-icon/ind.svg";
 import uaeFlag from "../assets/icons/flag-icon/ind.svg";
 import { HiChevronDown } from "react-icons/hi";
 import { useNavigate, Link } from "react-router-dom";
-import { verifyGstinForRegistration,registerUser,sendOtpForLogin,getAllStates,verifyPhoneForRegistration   } from "../api/apiRequestChild";
+import { verifyGstinForRegistration,registerUser,sendOtpForLogin,getAllStates,verifyPhoneForRegistration ,getCitiesByState   } from "../api/apiRequestChild";
 
 import { FiChevronDown, FiCheck } from "react-icons/fi";
 
@@ -61,45 +61,60 @@ const Register = () => {
     { name: "UAE", code: "+971", flag: uaeFlag },
   ];
 
-  const [selectedCountry, setSelectedCountry] = useState(countries[0]);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [selectedCountry, setSelectedCountry] = useState(countries[0]);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
-  const selectCountry = (country) => {
-    setSelectedCountry(country);
-    setDropdownOpen(false);
-  };
+    const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
+    const selectCountry = (country) => {
+      setSelectedCountry(country);
+      setDropdownOpen(false);
+    };
 
-  const [selectedState, setSelectedState] = useState("");
-  const [stateDropdownOpen, setStateDropdownOpen] = useState(false);
-  const stateRef = useRef();
+    const [selectedState, setSelectedState] = useState("");
+    const [stateDropdownOpen, setStateDropdownOpen] = useState(false);
+    const stateRef = useRef();
 
 
     useEffect(() => {
-    const fetchStates = async () => {
-      try {
-        const res = await getAllStates();
-        const data = await res.json();
-        if (data.res === true && Array.isArray(data.state)) {
-          setStatesList(data.state);
+      const fetchStates = async () => {
+        try {
+          const res = await getAllStates();
+          const data = await res.json();
+          if (data.res === true && Array.isArray(data.state)) {
+            setStatesList(data.state);
+          }
+        } catch (err) {
+          console.error("Failed to fetch states", err);
         }
-      } catch (err) {
-        console.error("Failed to fetch states", err);
-      }
-    };
+      };
 
-    fetchStates();
-  }, []);
+      fetchStates();
+    }, []);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (stateRef.current && !stateRef.current.contains(event.target)) {
-        setStateDropdownOpen(false);
+    useEffect(() => {
+      if (selectedStateId) {
+        const fetchCities = async () => {
+          try {
+            const cities = await getCitiesByState(selectedStateId);
+            console.log("Cities for selected state:", cities);
+          } catch (error) {
+            console.error("Error fetching cities:", error);
+          }
+        };
+
+        fetchCities();
       }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+    }, [selectedStateId]);
+
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (stateRef.current && !stateRef.current.contains(event.target)) {
+          setStateDropdownOpen(false);
+        }
+      };
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
   const validateNoGstinFields = () => {
     const newErrors = {};
@@ -765,10 +780,10 @@ const Register = () => {
                                       key={stateObj.id}
                                       className={`ba-dropdown-item ${selectedState === stateObj.name ? "selected" : ""}`}
                                       onClick={() => {
-                                        setSelectedState(stateObj.name);       // for label display
-                                        setSelectedStateId(stateObj.id);       // for formData submission
-                                        setStateDropdownOpen(false);
-                                      }}
+  setSelectedState(stateObj.name);
+  setSelectedStateId(stateObj.id); // ✅ Yeh line `useEffect` trigger karegi
+  setStateDropdownOpen(false);
+}}
                                     >
                                       {stateObj.name}
                                       {selectedState === stateObj.name && (
