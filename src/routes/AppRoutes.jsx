@@ -48,7 +48,7 @@ const AppRoutes = () => (
       <Route path="/wallet" element={<PrivateRoute><ProfileWallet /></PrivateRoute>} />
       <Route path="/ticketDetails" element={<PrivateRoute><TicketDetails /></PrivateRoute>} />
     </Routes>
-   </HashRouter>
+  </HashRouter>
 );
 
 export default AppRoutes;
